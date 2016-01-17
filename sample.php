@@ -1,6 +1,6 @@
 
 <script type="text/javascript">
-	
+
 	function tuniPlayer(){
 
 		// Initialize the Audio Object in JS
@@ -9,7 +9,7 @@
 
 		// Which one is playing
 
-		var pointer=0;
+		this.pointer=0;
 
 
 		/*
@@ -24,6 +24,7 @@
 
 						Song_Name:crazier, 
 						Song_stream:www.example/crazier.mp3,
+						Song_url=www.tunisongs.com/crazier,
 
 						Artist_name:Taylor_Swift,
 						Artist_Profile: www.tunisongs.com/tarlorSwift, 
@@ -37,18 +38,39 @@
 		   Now I guess you have got the basic Idea
 
 		*/ 
-		var playList;
-		var playListLength;
+
+		this.playList;
+		this.playListLength;
+
+
+		/* 
+			Some variables are needed for UI control like 
+			These basic thing will be necessary to add make the UI meaningful
+
+		*/
+		this.song_name;
+		this.song_info;
+		this.artist_name;
+		this.artist_profile;
+		this.album_Name;
+		this.album_url;
+		this.total_length;
+
+
+
 
 		this.loadPlayList=function loadPlayList(ObjectArray){
 
-			playListLength=ObjectArray.length;
-			playList=ObjectArray;
+			this.playListLength=ObjectArray.length;
+			this.playList=ObjectArray;
+
+			this.playerUI();
 		}
 
 
-		this.playSong=function playSong(object, pointer){
-
+		this.playSong=function playSong(ObjectArray, pointer){
+			audio.src=ObjectArray[this.pointer].Song_stream;
+			audio.play();
 		}
 
 
@@ -65,10 +87,67 @@
 
 		this.playNext=function playNext(){
 
-			pointer++;
+			this.pointer++;
+			//alert(pointer);
 
-			playSong(playList, pointer);
+			this.playSong(this.playList, this.pointer);
+		}
+
+
+
+		this.playPrevious=function playPrevious(){
+			this.pointer--;
+			this.playSong(this.playList, this.pointer);
+		}
+
+
+		this.play_pause=function play_pause(){
+			if(audio.paused){
+				audio.play();
+				// Then  the Code will go for UI Control
+				
+			}else{
+				audio.pause();
+				//Then the code will go for UI Control
+			}
+			this.playerUI();
+		}
+
+		this.playerUI=function playerUI(){
+				/*
+					This function is need for all the controls I need to make change on the UI
+				*/
+
+
 		}
 
 	}
+
+
+
+p=[ {
+						Song_Name:"crazier", 
+						Song_stream:"audio/1.mp3",
+						
+					}, 
+
+					{
+						Song_Name:"crazier", 
+						Song_stream:"audio/2.mp3",
+						
+					}
+					]; 
+
+
+
+
+//alert(p[0].Song_stream);
+tuniPlayer=new tuniPlayer();
+tuniPlayer.playList=p;
+tuniPlayer.pointer=1;
+
+tuniPlayer.playPrevious();
+
+
+
 </script>
