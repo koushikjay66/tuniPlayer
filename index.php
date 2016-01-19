@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	var audio=new Audio();
 
-	audio.src="audio/1.mp3";
+	audio.src="http://localhost/tuniPlayer/test.php";
 	
 	function cpp(){
 		if (audio.paused) {
